@@ -1,5 +1,7 @@
 const inquirer = require('inquirer');
 const Employee = require('./lib/Employee.js');
+const Engineer = require('./lib/Engineer.js');
+const Manager = require('./lib/Manager.js');
 
 
 const employeeQuestions = [
@@ -21,7 +23,6 @@ const employeeQuestions = [
 ]
 
 const main = async () => {
-    function questionSet1() {
         
         const { name, id, email } = await inquirer.prompt(employeeQuestions);
         
@@ -34,17 +35,24 @@ const main = async () => {
 
         switch (roles) {
             case 'Manager': {
-                
-    
+                const employ = new Manager(name, id, email);
+                console.log(employ);
             }
                 
                 break;
     
-            case 'Engineer':
+            case 'Engineer': {
+                const employ = new Engineer(name, id, email);
+                console.log(employ)
+            }
+
                 
                 break;
     
-            case 'Intern':
+            case 'Intern': {
+                const employ = new Engineer(name, id, email);
+                console.log(employ)
+            }
                 
                 break;
         
@@ -53,17 +61,6 @@ const main = async () => {
             }
                 break;
         }
-    }
-
-    questionSet1();
-    
-
-
-    const another = await inquirer.prompt({
-        type: 'confirm',
-        name: 'another',
-        message: 'Would you like to add another employee?'
-    })
 }
 
 main();
