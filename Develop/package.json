@@ -8,12 +8,13 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --verbose test/*"
+    "test": "jest --verbose test/*",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^6.3.1"
+    "inquirer": "^6.5.2"
   },
   "devDependencies": {
     "jest": "^24.8.0"
