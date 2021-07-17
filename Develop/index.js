@@ -66,15 +66,17 @@ const main = async () => {
     
     // WHEN I start the application
     // THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-    const teamManager = await inquirer.prompt(teamManagerQuestions);
+    const {name, id, email, officeNumber} = await inquirer.prompt(teamManagerQuestions);
 
-    console.log(teamManager);
+    const manager = new Manager(name, id, email, officeNumber);
+
+    console.log(`Thanks ${manager.name}.`);
 
     // THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
     const another = await inquirer.prompt({
         type:'confirm',
         name:'another',
-        message: `Would you like to add any employee's to your team ${teamManager.name}?`
+        message: `Would you like to add any employee's to your team, ${manager.name}?`
     })
     if (another === true) {
         const { name, id, email, extraRoles } = await inquirer.prompt(employeeQuestions);
@@ -91,7 +93,13 @@ const main = async () => {
             switch (roles) {
                 
                 case 'Engineer': {
-                    const employ = new Engineer(name, id, email);
+                    console.log('The Engineer role requires registration of a github username...');
+                    const { github } = await inquirer.prompt({
+                        type: 'input',
+                        name: 'github',
+                        message: 'Username: '
+                    });
+                    const employ = new Engineer(name, id, email, github);
                     employArr.push(employ);
                 }
                     break;
@@ -111,7 +119,52 @@ const main = async () => {
     } else {
         console.log(`Great! Generating your webpage now...`);
         // TODO: Add lines to call generateHTML function with arguments of employees
+        
     };
 }
+
+const generateHTML = async () => {
+
+const template = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>Team Portfolio</title>
+</head>
+<body>
+
+    <header>
+        <h1>My Team</h1>
+    </header>
+
+    <main class='flex flex-around'>
+    ${card}
+    </main>
+
+</body>
+</html>
+`
+}
+const card = `<div class="card">
+<div class="card-header">
+    <h2 class="employee-name">Jim</h2>
+    <div class="role flex">
+        <icon></icon>
+        <h3></h3>
+    </div>
+</div>
+<div class="card-body">
+    <ul class="card-list">
+        <li class="card-item"><a id="email" class="card-link" href="#">${manager.email}</a></li>
+        <li class="card-item"><a id="ID" href="#">${manager.id}</a></li>
+        <li class="card-item">Office Number: ${manager.officeNumber}</li>
+     </ul>
+</div>
+</div>`
+
 
 main();
