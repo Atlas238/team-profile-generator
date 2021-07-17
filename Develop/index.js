@@ -158,7 +158,7 @@ const generateHTML = async () => {
     </body>
     </html>
     `
-    const card = `<div class="card">
+    let card = `<div class="card">
     <div class="card-header">
         <h2 class="employee-name">Jim</h2>
         <div class="role flex">
@@ -177,8 +177,76 @@ const generateHTML = async () => {
     function addCard(str, index, stringToAdd){
         return str.substring(0, index) + stringToAdd + str.substring(index, str.length);
       }
+      employ.forEach(employeeDetails => {
+
+          if (employeeDetails.role = 'Manager') {
+
+          card = `<div class="card">
+          <div class="card-header">
+            <h2 class="employee-name">${employeeDetails.name}</h2>
+            <div class="role flex">
+                <icon></icon>
+                <h3>${employeeDetails.role}</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="card-list">
+                <li class="card-item">ID: ${employeeDetails.id}</li>
+                <li class="card-item">Email: <a class="card-link" href="#">${employeeDetails.email}</a></li>
+                <li class="card-item">Office Number: ${employeeDetails.officeNumber}</li>
+            </ul>
+        </div>
+        </div>`
+
+        }
+
+        if (employeeDetails.role = 'Engineer') {
+
+            card = `<div class="card">
+            <div class="card-header">
+              <h2 class="employee-name">${employeeDetails.name}</h2>
+              <div class="role flex">
+                  <icon></icon>
+                  <h3>${employeeDetails.role}</h3>
+              </div>
+          </div>
+          <div class="card-body">
+              <ul class="card-list">
+                  <li class="card-item">ID: ${employeeDetails.id}</li>
+                  <li class="card-item">Email: <a class="card-link" href="#">${employeeDetails.email}</a></li>
+                  <li class="card-item">Github: <a class="card-link" href="#">${employeeDetails.github}</a></li>
+              </ul>
+          </div>
+          </div>`
+
+        }
+
+        if (employeeDetails.role = 'Intern') {
+
+            card = `<div class="card">
+            <div class="card-header">
+              <h2 class="employee-name">${employeeDetails.name}</h2>
+              <div class="role flex">
+                  <icon></icon>
+                  <h3>${employeeDetails.role}</h3>
+              </div>
+          </div>
+          <div class="card-body">
+              <ul class="card-list">
+                  <li class="card-item">ID: ${employeeDetails.id}</li>
+                  <li class="card-item">Email: <a class="card-link" href="#">${employeeDetails.email}</a></li>
+                  <li class="card-item">School: <a class="card-link" href="#">${employeeDetails.school}</a></li>
+              </ul>
+          </div>
+          </div>`
+
+        }
+        
+      });
 
       console.log(addCard(template, 497, card));
+
+      console.log();
       
 
 // console.log(template[497])
