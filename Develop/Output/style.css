@@ -1,6 +1,28 @@
 :root {
     --primary: #292929;
+    --primary-light: #505050;
     --text: aliceblue;
+}
+/* Scroll bar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Setting general styles */
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -8,6 +30,7 @@ body {
     width:100%;
 }
 
+/* Header styling to center team */
 header {
     display: flex;
     justify-content: center;
@@ -23,32 +46,50 @@ header h1 {
     color:aliceblue;
 }
 
+main {
+    height:100vh;
+}
+
+/* Assigner class that only changes display to flex */
 .flex {
     display:flex;
 }
 
-/* .manager-card {
+.flex-around {
+    justify-content: space-around;
+}
+
+/* Design for Manager Card (Present on every generated HTML file) */
+.card {
+    border: 1px solid red;
+    width:350px;
+    height:500px;
+}
+
+.card-header {
+    font-size: 1.5rem;
+}
+
+.employee-name {
+    width:fit-content;
+    padding-left: 1rem;
+}
+
+.role {
+    width:fit-content;
+    padding-left: 2rem;
+} 
+
+.role > icon {
 
 }
 
-.card-heading {
-
-}
-
-.manager-name {
-
-}
-
-.manager {
-
-}
-
-.card-body {
+ .card-body {
 
 }
 
 .card-list {
-
+    list-style: none;
 }
 
 .card-list.card-item {
@@ -57,4 +98,4 @@ header h1 {
 
 .card-item.card-link {
 
-} */
+} */. */
