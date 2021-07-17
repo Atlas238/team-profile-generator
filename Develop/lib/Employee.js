@@ -4,7 +4,7 @@ class Employee {
         this.name = name;
         this.id = id;
         this.email = email;
-        this.role = employee;
+        this.role = 'Employee';
     }
 
     getName = () => {
@@ -17,7 +17,7 @@ class Employee {
         return this.email;
     }
     
-    getID = () => {
+    getId = () => {
         console.log(`${this.name}'s id is ${this.id}`);
         return this.id;
     }
@@ -25,6 +25,7 @@ class Employee {
     getRole = () => {
         console.log(`${this.name}'s role is ${this.role}`);
         return this.role;
+    
     }
 }
 

@@ -56,7 +56,7 @@ const employeeQuestions = [
     {
         type: 'confirm',
         name: 'extraRoles',
-        messsage: 'Would you like to add any roles to this employee?'
+        messsage: `Would you like to add any roles to this employee?`
     }
 ]
 
@@ -73,12 +73,14 @@ const main = async () => {
     console.log(`Thanks ${manager.name}.`);
 
     // THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-    const another = await inquirer.prompt({
+    const { another } = await inquirer.prompt({
         type:'confirm',
         name:'another',
         message: `Would you like to add any employee's to your team, ${manager.name}?`
     })
+    console.log(another);
     if (another === true) {
+        
         const { name, id, email, extraRoles } = await inquirer.prompt(employeeQuestions);
 
         if (extraRoles) {
@@ -101,11 +103,18 @@ const main = async () => {
                     });
                     const employ = new Engineer(name, id, email, github);
                     employArr.push(employ);
+                    console.log(employArr[0])
                 }
                     break;
         
                 case 'Intern': {
-                    const employ = new Engineer(name, id, email);
+                    console.log('The Intern role requires registration of a School...');
+                    const { school } = await inquirer.prompt({
+                        type: 'input',
+                        name: 'school',
+                        message: 'School: '
+                    })
+                    const employ = new Intern(name, id, email, school);
                     employArr.push(employ);
                 }
                     break;
@@ -148,7 +157,6 @@ const template = `<!DOCTYPE html>
 </body>
 </html>
 `
-}
 const card = `<div class="card">
 <div class="card-header">
     <h2 class="employee-name">Jim</h2>
@@ -165,6 +173,7 @@ const card = `<div class="card">
      </ul>
 </div>
 </div>`
+}
 
 
 main();
