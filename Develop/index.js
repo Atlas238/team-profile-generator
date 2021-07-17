@@ -5,8 +5,6 @@ const Engineer = require('./lib/Engineer.js');
 const Manager = require('./lib/Manager.js');
 const Intern = require('./lib/Intern.js');
 
-
-
 // WHEN I select the engineer option
 // THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
 // WHEN I select the intern option
@@ -52,85 +50,68 @@ const employeeQuestions = [
         type: 'input',
         name: 'email',
         message: `Enter your new Employee's Email: `
-    },
-    {
-        type: 'confirm',
-        name: 'extraRoles',
-        messsage: `Would you like to add any roles to this employee?`
     }
 ]
+const employArr = [];
 
-const main = async () => {
+let exit = false;
 
-    const employArr = [];
-    
-    // WHEN I start the application
-    // THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
+const registerManager = async () => {
+
+    console.log("Welcome! Let's create your team page. Please start by entering your details.\n This program assumes you are the team manager and will asign this role to the person whose details you enter here.");
+
     const {name, id, email, officeNumber} = await inquirer.prompt(teamManagerQuestions);
 
     const manager = new Manager(name, id, email, officeNumber);
 
+    employArr.push(manager);
+
     console.log(`Thanks ${manager.name}.`);
 
-    // THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-    const { another } = await inquirer.prompt({
-        type:'confirm',
-        name:'another',
-        message: `Would you like to add any employee's to your team, ${manager.name}?`
+}
+
+const newEngineer = async () => {
+
+    console.log('Great! Please fill out the new employees details.');
+    
+    const { name, id, email }  = await inquirer.prompt(employeeQuestions);
+    
+    console.log('The Engineer role requires registration of a github username...');
+    
+    const { github } = await inquirer
+        .prompt({
+            type: 'input',
+            name: 'github',
+            message: 'Username: '
+        });
+    
+    const employ = new Engineer(name, id, email, github);
+    
+    employArr.push(employ);
+
+    console.log("Thanks! Your new engineer has been added.");
+
+}
+
+const newIntern = async () => {
+
+    console.log('Great! Please fill out the new employees details.');
+    
+    const { name, id, email }  = await inquirer.prompt(employeeQuestions);
+
+    console.log('The Intern role requires registration of a School...');
+
+    const { school } = await inquirer.prompt({
+        type: 'input',
+        name: 'school',
+        message: 'School: '
     })
-    console.log(another);
-    if (another === true) {
-        
-        const { name, id, email, extraRoles } = await inquirer.prompt(employeeQuestions);
 
-        if (extraRoles) {
+    const employ = new Intern(name, id, email, school);
 
-            const { roles } = await inquirer.prompt({
-                type: 'list',
-                name:'roles',
-                message: 'Which role would you like to assign?',
-                choices: ['Engineer', 'Intern', 'None']
-            })
-    
-            switch (roles) {
-                
-                case 'Engineer': {
-                    console.log('The Engineer role requires registration of a github username...');
-                    const { github } = await inquirer.prompt({
-                        type: 'input',
-                        name: 'github',
-                        message: 'Username: '
-                    });
-                    const employ = new Engineer(name, id, email, github);
-                    employArr.push(employ);
-                    console.log(employArr[0])
-                }
-                    break;
-        
-                case 'Intern': {
-                    console.log('The Intern role requires registration of a School...');
-                    const { school } = await inquirer.prompt({
-                        type: 'input',
-                        name: 'school',
-                        message: 'School: '
-                    })
-                    const employ = new Intern(name, id, email, school);
-                    employArr.push(employ);
-                }
-                    break;
-            }
-    
-        } else {
-            const employ = new Employee(name, id, email);
-            employArr.push(employ);
-        }
+    employArr.push(employ);
 
-    } else {
-        console.log(`Great! Generating your webpage now...`);
-        // TODO: Add lines to call generateHTML function with arguments of employees
-
-        
-    };
+    console.log("Thanks! Your new Intern has been added.");
 }
 
 const generateHTML = async () => {
@@ -138,119 +119,152 @@ const generateHTML = async () => {
     let template = `<!DOCTYPE html>
     <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./reset.css">
-        <link rel="stylesheet" href="./style.css">
-        <title>Team Portfolio</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>Team Portfolio</title>
     </head>
     <body>
     
-        <header>
-            <h1>My Team</h1>
-        </header>
+    <header>
+    <h1>My Team</h1>
+    </header>
     
-        <main class='flex flex-around'>
-        
-        </main>
+    <main class='flex flex-around'>
+    
+    </main>
     
     </body>
     </html>
     `
-    let card = `<div class="card">
-    <div class="card-header">
-        <h2 class="employee-name">Jim</h2>
-        <div class="role flex">
-            <icon></icon>
-            <h3></h3>
-        </div>
-    </div>
-    <div class="card-body">
-        <ul class="card-list">
-            <li class="card-item"><a id="email" class="card-link" href="#"></a></li>
-            <li class="card-item"><a id="ID" href="#"></a></li>
-         </ul>
-    </div>
-    </div>`
-
+    
     function addCard(str, index, stringToAdd){
         return str.substring(0, index) + stringToAdd + str.substring(index, str.length);
-      }
-      employ.forEach(employeeDetails => {
+    }
+    
+    const cardStack = [];
+    
+    employArr.forEach(employeeDetails => {
+        
+        switch (employeeDetails.role){
+            case 'Manager' : {
 
-          if (employeeDetails.role = 'Manager') {
+            let card = `
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="employee-name">${employeeDetails.name}</h2>
+                    <div class="role flex">
+                    <icon></icon>
+                    <h3>${employeeDetails.role}</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul class="card-list">
+                        <li class="card-item">ID: ${employeeDetails.id}</li>
+                        <li class="card-item">Email: <a class="card-link" href="mailto:${employeeDetails.email}">${employeeDetails.email}</a></li>
+                        <li class="card-item">Office Number: ${employeeDetails.officeNumber}</li>
+                    </ul>
+                </div>
+            </div>`
+            
+            cardStack.push(`${card}\n`);
+            } break;
+            
+            case 'Engineer' : {
 
-          card = `<div class="card">
-          <div class="card-header">
-            <h2 class="employee-name">${employeeDetails.name}</h2>
-            <div class="role flex">
-                <icon></icon>
-                <h3>${employeeDetails.role}</h3>
-            </div>
-        </div>
-        <div class="card-body">
-            <ul class="card-list">
-                <li class="card-item">ID: ${employeeDetails.id}</li>
-                <li class="card-item">Email: <a class="card-link" href="#">${employeeDetails.email}</a></li>
-                <li class="card-item">Office Number: ${employeeDetails.officeNumber}</li>
-            </ul>
-        </div>
-        </div>`
+            let card = `
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="employee-name">${employeeDetails.name}</h2>
+                    <div class="role flex">
+                    <icon></icon>
+                    <h3>${employeeDetails.role}</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul class="card-list">
+                        <li class="card-item">ID: ${employeeDetails.id}</li>
+                        <li class="card-item">Email: <a class="card-link" href="mailto:${employeeDetails.email}">${employeeDetails.email}</a></li>
+                        <li class="card-item">Github: <a class="card-link" href="https://github.com/${employeeDetails.github}/">${employeeDetails.github}</a></li>
+                    </ul>
+                </div>
+            </div>`
+            
+            cardStack.push(`${card}\n`);
 
-        }
+            } break;
 
-        if (employeeDetails.role = 'Engineer') {
+            case 'Intern' : {
 
-            card = `<div class="card">
-            <div class="card-header">
-              <h2 class="employee-name">${employeeDetails.name}</h2>
-              <div class="role flex">
-                  <icon></icon>
-                  <h3>${employeeDetails.role}</h3>
-              </div>
-          </div>
-          <div class="card-body">
-              <ul class="card-list">
-                  <li class="card-item">ID: ${employeeDetails.id}</li>
-                  <li class="card-item">Email: <a class="card-link" href="#">${employeeDetails.email}</a></li>
-                  <li class="card-item">Github: <a class="card-link" href="#">${employeeDetails.github}</a></li>
-              </ul>
-          </div>
-          </div>`
-
-        }
-
-        if (employeeDetails.role = 'Intern') {
-
-            card = `<div class="card">
-            <div class="card-header">
-              <h2 class="employee-name">${employeeDetails.name}</h2>
-              <div class="role flex">
-                  <icon></icon>
-                  <h3>${employeeDetails.role}</h3>
-              </div>
-          </div>
-          <div class="card-body">
-              <ul class="card-list">
-                  <li class="card-item">ID: ${employeeDetails.id}</li>
-                  <li class="card-item">Email: <a class="card-link" href="#">${employeeDetails.email}</a></li>
-                  <li class="card-item">School: <a class="card-link" href="#">${employeeDetails.school}</a></li>
-              </ul>
-          </div>
-          </div>`
-
+            let card = `
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="employee-name">${employeeDetails.name}</h2>
+                    <div class="role flex">
+                    <icon></icon>
+                    <h3>${employeeDetails.role}</h3>
+                    </div>
+                </div>
+            <div class="card-body">
+                <ul class="card-list">
+                    <li class="card-item">ID: ${employeeDetails.id}</li>
+                    <li class="card-item">Email: <a class="card-link" href="mailto:${employeeDetails.email}">${employeeDetails.email}</a></li>
+                    <li class="card-item">School: ${employeeDetails.school}</li>
+                </ul>
+                </div>
+            </div>`
+                
+            cardStack.push(`${card}\n`);
+            } break;
         }
         
-      });
-
-      console.log(addCard(template, 497, card));
-
-      console.log();
-      
-
-// console.log(template[497])
+        console.log(cardStack);
+    });
+    
+    //   console.log(addCard(template, 497, card));
+    
+    // Index of main div
+        // console.log(template[497])
 }
 
-generateHTML();
-// main();
+const main = async () => {
+    
+    // WHEN I start the application
+    // THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
+    await registerManager();
+    
+    // THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
+    do {
+        const { another } = await inquirer.prompt({
+            type:'list',
+            name:'another',
+            message: 'Would you like to add another engineer, or intern? Or are you finished building your team?',
+            choices: ['Engineer','Intern','All Done']
+        })
+
+        switch(another) {
+
+            case 'Engineer': {
+                await newEngineer();
+            } break;
+
+            case 'Intern': {
+                await newIntern();
+            } break;
+
+            case 'All Done': {
+                console.log('Sounds good! Generating your page now...');
+
+                exit = true;
+
+                await generateHTML();
+
+            } break;
+        }
+
+    } while (exit !== true);
+}
+
+main();
