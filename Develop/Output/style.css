@@ -3,7 +3,7 @@
     --primary-light: #505050;
     --card-primary: #428a84;
     --card-secondary: #64676b;
-    --text: rgb(228, 222, 222);
+    --text: rgb(248, 239, 239);
 }
 /* Scroll bar */
 ::-webkit-scrollbar {
@@ -37,7 +37,7 @@ header {
     display: flex;
     justify-content: center;
     align-content: center;
-    background-color: var(--primary);
+    background-color: var(--card-primary);
     width:100%;
     min-height:100px;
 }
@@ -71,7 +71,7 @@ main {
 }
 
 .card-header {
-    color:white;
+    color:var(--text);
     background-color: var(--card-primary);
     font-size: 1.5rem;
     padding-bottom:0.5rem;
