@@ -52,6 +52,7 @@ const employeeQuestions = [
         message: `Enter your new Employee's Email: `
     }
 ]
+
 const employArr = [];
 
 let exit = false;
@@ -140,7 +141,7 @@ const generateHTML = async () => {
     </html>
     `
     
-    function addCard(str, index, stringToAdd){
+    function addCardStack(str, index, stringToAdd){
         return str.substring(0, index) + stringToAdd + str.substring(index, str.length);
     }
     
@@ -219,18 +220,18 @@ const generateHTML = async () => {
             cardStack.push(`${card}\n`);
             } break;
         }
-        
+        // Should have each employees details saved to a big card string in an array
         console.log(cardStack);
+        // Adds the stack string to the middle of our template page (main div section)
+        console.log(addCardStack(template, 497, cardStack));
+        
+        // TODO: confirm that final template gen works, and check on output
+        
     });
-    
-    //   console.log(addCard(template, 497, card));
-    
-    // Index of main div
-        // console.log(template[497])
 }
 
 const main = async () => {
-    
+
     // WHEN I start the application
     // THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
     await registerManager();
