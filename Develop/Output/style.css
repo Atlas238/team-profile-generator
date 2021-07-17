@@ -1,0 +1,60 @@
+:root {
+    --primary: #292929;
+    --text: aliceblue;
+}
+
+body {
+    height:100vh;
+    width:100%;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: var(--primary);
+    width:100%;
+    min-height:100px;
+}
+
+header h1 {
+    margin: auto 0;
+    height:fit-content;
+    color:aliceblue;
+}
+
+.flex {
+    display:flex;
+}
+
+/* .manager-card {
+
+}
+
+.card-heading {
+
+}
+
+.manager-name {
+
+}
+
+.manager {
+
+}
+
+.card-body {
+
+}
+
+.card-list {
+
+}
+
+.card-list.card-item {
+
+}
+
+.card-item.card-link {
+
+} */
