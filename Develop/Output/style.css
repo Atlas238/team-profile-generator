@@ -1,7 +1,9 @@
 :root {
     --primary: #292929;
     --primary-light: #505050;
-    --text: aliceblue;
+    --card-primary: #428a84;
+    --card-secondary: #64676b;
+    --text: rgb(228, 222, 222);
 }
 /* Scroll bar */
 ::-webkit-scrollbar {
@@ -43,7 +45,7 @@ header {
 header h1 {
     margin: auto 0;
     height:fit-content;
-    color:aliceblue;
+    color:var(--text);
 }
 
 main {
@@ -61,13 +63,18 @@ main {
 
 /* Design for Manager Card (Present on every generated HTML file) */
 .card {
+    margin: 2rem 2rem;
     border: 1px solid red;
     width:350px;
-    height:500px;
+    height:fit-content;
+    box-shadow: 0px 5px 25px 5px rgba(0,0,0,0.49);
 }
 
 .card-header {
+    color:white;
+    background-color: var(--card-primary);
     font-size: 1.5rem;
+    padding-bottom:0.5rem;
 }
 
 .employee-name {
@@ -76,26 +83,25 @@ main {
 }
 
 .role {
-    width:fit-content;
+    width:100%;
     padding-left: 2rem;
 } 
 
 .role > icon {
-
+    padding: 0 0.5rem;
 }
 
- .card-body {
-
+.card-body {
+    padding: 1rem 1rem;
 }
 
 .card-list {
-    list-style: none;
+    padding: 0.6rem;
+    background-color: var(--card-secondary);
+    list-style-type: none;
+    color:var(--text);
 }
 
-.card-list.card-item {
-
+.card-item {
+    
 }
-
-.card-item.card-link {
-
-} */. */
