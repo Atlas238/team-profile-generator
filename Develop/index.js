@@ -76,7 +76,7 @@ const main = async () => {
         name:'another',
         message: `Would you like to add any employee's to your team ${teamManager.name}?`
     })
-    if (another) {
+    if (another === true) {
         const { name, id, email, extraRoles } = await inquirer.prompt(employeeQuestions);
 
         if (extraRoles) {
@@ -109,16 +109,9 @@ const main = async () => {
         }
 
     } else {
-        console.log(`Great! Generating your webpage now...`)
-        fs.writeFile('./Output/index.html', //BODY OF HTML FILE HERE// )
-    }
-    
-
-
-    
-
-    console.log(employArr[0])
-
+        console.log(`Great! Generating your webpage now...`);
+        // TODO: Add lines to call generateHTML function with arguments of employees
+    };
 }
 
 main();
