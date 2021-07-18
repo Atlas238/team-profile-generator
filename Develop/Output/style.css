@@ -3,6 +3,7 @@
     --primary-light: #505050;
     --card-primary: #428a84;
     --card-secondary: #64676b;
+    --card-secondary-faded: #797c80;
     --card-link: #30be91;
     --text: rgb(248, 239, 239);
 }
@@ -41,9 +42,11 @@ header {
     background-color: var(--card-primary);
     width:100%;
     min-height:100px;
+    border-bottom: 1rem ridge var(--primary);
 }
 
 header h1 {
+    font-size: 5rem;
     margin: auto 0;
     height:fit-content;
     color:var(--text);
@@ -51,6 +54,7 @@ header h1 {
 
 main {
     height:100vh;
+    background-color: rgb(230, 230, 230);
 }
 /* Utility classes */
 .flex {
@@ -66,7 +70,7 @@ main {
     margin: 2rem 2rem;
     width:350px;
     height:fit-content;
-    box-shadow: 0px 5px 20px 2px rgba(0,0,0,0.49);
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.49);
     border-radius: 5px 5px 5px 5px;
 }
 
@@ -96,6 +100,7 @@ main {
 
 .role img {
     width:20%;
+    opacity: 0.7;
 }
 
 .role h3 {
@@ -105,6 +110,8 @@ main {
 
 .card-body {
     padding: 1rem 1rem;
+    background-color: var(--card-secondary);
+    border-top: 1rem solid var(--card-secondary-faded)
 }
 
 .card-list {
