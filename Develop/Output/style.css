@@ -52,8 +52,7 @@ header h1 {
 main {
     height:100vh;
 }
-
-/* Assigner class that only changes display to flex */
+/* Utility classes */
 .flex {
     display:flex;
 }
@@ -62,7 +61,7 @@ main {
     justify-content: space-around;
 }
 
-/* Design for Manager Card (Present on every generated HTML file) */
+/* Our employee card styling, broken down into three main sections */
 .card {
     margin: 2rem 2rem;
     width:350px;
@@ -131,7 +130,7 @@ main {
 .card-item a:hover {
    opacity: 1;
 }
-
+/* Specific positioning on two slighly annoyingly shaped icons */
 #glasses {
     position: relative;
     top:7px;
