@@ -149,7 +149,7 @@ const generateHTML = () => {
                 <div class="card-header">
                     <h2 class="employee-name">${employeeDetails.name}</h2>
                     <div class="role flex">
-                    <icon></icon>
+                    <img id="coffeeCup" src="../assets/coffee-cup.svg" alt="Coffee Cup">
                     <h3>${employeeDetails.role}</h3>
                     </div>
                 </div>
@@ -172,7 +172,7 @@ const generateHTML = () => {
                 <div class="card-header">
                     <h2 class="employee-name">${employeeDetails.name}</h2>
                     <div class="role flex">
-                    <icon></icon>
+                    <img id="glasses" src="../assets/eyeglasses.svg" alt="Glasses">
                     <h3>${employeeDetails.role}</h3>
                     </div>
                 </div>
@@ -196,7 +196,7 @@ const generateHTML = () => {
                 <div class="card-header">
                     <h2 class="employee-name">${employeeDetails.name}</h2>
                     <div class="role flex">
-                    <icon></icon>
+                    <img id="student" src="../assets/graduated.svg" alt="Student">
                     <h3>${employeeDetails.role}</h3>
                     </div>
                 </div>
