@@ -3,6 +3,7 @@
     --primary-light: #505050;
     --card-primary: #428a84;
     --card-secondary: #64676b;
+    --card-link: #30be91;
     --text: rgb(248, 239, 239);
 }
 /* Scroll bar */
@@ -64,10 +65,10 @@ main {
 /* Design for Manager Card (Present on every generated HTML file) */
 .card {
     margin: 2rem 2rem;
-    border: 1px solid red;
     width:350px;
     height:fit-content;
-    box-shadow: 0px 5px 25px 5px rgba(0,0,0,0.49);
+    box-shadow: 0px 5px 20px 2px rgba(0,0,0,0.49);
+    border-radius: 5px 5px 5px 5px;
 }
 
 .card-header {
@@ -75,20 +76,32 @@ main {
     background-color: var(--card-primary);
     font-size: 1.5rem;
     padding-bottom:0.5rem;
+    width:100%;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
 }
 
 .employee-name {
-    width:fit-content;
-    padding-left: 1rem;
+    width:100%;
+    font-size: 3rem;
+    padding: 0.5rem 0 0.5rem 3rem;
+    border-bottom: 1px solid whitesmoke;
 }
 
 .role {
-    width:100%;
-    padding-left: 2rem;
-} 
+    width:fit-content;
+    align-items: center;
+    justify-content: space-evenly;
+    padding:0.5rem;
+}
 
-.role > icon {
-    padding: 0 0.5rem;
+.role img {
+    width:20%;
+}
+
+.role h3 {
+    font-size: 2.5rem;
+    padding-top:1rem;
 }
 
 .card-body {
@@ -103,5 +116,28 @@ main {
 }
 
 .card-item {
-    
+    font-size: 1.2rem;
+    padding: 0.3rem;
+    border-bottom: 1px solid whitesmoke;
+}
+
+.card-item a {
+    color: var(--card-link);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 200ms ease-in-out;
+}
+
+.card-item a:hover {
+   opacity: 1;
+}
+
+#glasses {
+    position: relative;
+    top:7px;
+}
+
+#student {
+    position: relative;
+    top:5px;
 }
