@@ -109,6 +109,7 @@ const newIntern = async () => {
 
 const generateHTML = () => {
     
+    // Holder variable for our main document template
     let template = `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -132,18 +133,20 @@ const generateHTML = () => {
     </body>
     </html>
     `
-    
+    // A quick function to inject a string at a given index (this specific syntax borrowed from codegrepper.com/code-examples/javascript/javascript+add+string+to+middle+of+string)
     function addCardStack(str, index, stringToAdd){
         return str.substring(0, index) + stringToAdd + str.substring(index, str.length);
     }
     
+    // Designating an array to hold our generated employee cards as needed
     const cardStack = [];
     
+    // For each loop that operates on our array of employees outputting strings with employee details injected where needed
     employArr.forEach(employeeDetails => {
         
         switch (employeeDetails.role){
             case 'Manager' : {
-
+            // By using a card templated scoped to the case I am able to be more specific with my styling and give certain roles without having to store relative location of svg files
             let card = `
             <div class="card">
                 <div class="card-header">
@@ -161,12 +164,12 @@ const generateHTML = () => {
                     </ul>
                 </div>
             </div>`
-            
+            // Putting new card with data into array, as well as a break for formatting...
             cardStack.push(`${card}\n`);
             } break;
             
             case 'Engineer' : {
-
+            // Same for Engineer...
             let card = `
             <div class="card">
                 <div class="card-header">
@@ -190,7 +193,7 @@ const generateHTML = () => {
             } break;
 
             case 'Intern' : {
-
+                // Same for Intern...
             let card = `
             <div class="card">
                 <div class="card-header">
@@ -213,9 +216,9 @@ const generateHTML = () => {
             } break;
         } 
     });
-
+    // Creating the final text from our template, injecting our cardstack, joined into one string, into the middle of our original template
     const fileText = addCardStack(template, 455, cardStack.join(""))
-    
+    // Calls fs.js and writes a new file in our Output folder(Where reset.css and style.css live) and sends a message if successful ending our app.
     fs.writeFile('./Output/index.html', fileText, (err) => {
         if (err) console.log(err);
         else {
