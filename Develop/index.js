@@ -55,10 +55,19 @@ const employArr = [];
 const registerManager = async () => {
 
     console.log("Welcome! Let's create your team page. Please start by entering your details.\n This program assumes you are the team manager and will asign this role to the person whose details you enter here.");
+
     // Asking for name, id, email and officeNumber since it is tied to our Manager class
     const {name, id, email, officeNumber} = await inquirer.prompt(teamManagerQuestions);
-    // Creating new Manager (TODO: IF INPUTS ARE ACCEPTED)
+
+    // If user entered anything...
+    if (name.length === 0 || id.length === 0 || email.length === 0 || officeNumber.length === 0) {
+        console.log('Items may not be left blank.');
+     ({ name, id, email, officeNumber })  = await inquirer.prompt(teamManagerQuestions);
+    }
+
+    // Creating new Manager (If inputs were non-zero)
     const manager = new Manager(name, id, email, officeNumber);
+
     // Adding our manager to employee array
     employArr.push(manager);
 
@@ -70,10 +79,18 @@ const registerManager = async () => {
 const newEngineer = async () => {
 
     console.log('Great! Please fill out the new employees details.');
+    
     // Asking for name, id, email (same for all employee types)
     const { name, id, email }  = await inquirer.prompt(employeeQuestions);
+
+    // Checking if user entered anything...
+    if (name.length === 0 || id.length === 0 || email.length === 0) {
+        console.log('Items may not be left blank.');
+     ({ name, id, email })  = await inquirer.prompt(employeeQuestions);
+    }
     
     console.log('The Engineer role requires registration of a github username...');
+
     // Asking for Engineer Github username
     const { github } = await inquirer
         .prompt({
@@ -81,8 +98,20 @@ const newEngineer = async () => {
             name: 'github',
             message: 'Username: '
         });
-    // Making new Engineer with inputs (TODO: IF INPUTS ARE ACCEPTED)
+
+    // Checking if user entered something
+    if (github.length === 0) {
+        console.log("Github username can't be left blank.")
+        ({ github }) = await inquirer.prompt({
+            type: 'input',
+            name: 'github',
+            message: 'Username: '
+        })
+    }
+
+    // Making new Engineer with inputs (IF INPUTS ARE ACCEPTED)
     const employ = new Engineer(name, id, email, github);
+
     // Adding new Engineer to array of employees
     employArr.push(employ);
 
@@ -94,18 +123,40 @@ const newEngineer = async () => {
 const newIntern = async () => {
 
     console.log('Great! Please fill out the new employees details.');
+
     // Asking for name, id, email (same for all employee types)
-    const { name, id, email }  = await inquirer.prompt(employeeQuestions);
+    let { name, id, email }  = await inquirer.prompt(employeeQuestions);
+
+    // Checking if user entered anything...
+    if (name.length === 0 || id.length === 0 || email.length === 0) {
+        console.log('Items may not be left blank.');
+     ({ name, id, email })  = await inquirer.prompt(employeeQuestions);
+    }
 
     console.log('The Intern role requires registration of a School...');
+
     // Asking for Intern School
-    const { school } = await inquirer.prompt({
+    let { school } = await inquirer.prompt({
         type: 'input',
         name: 'school',
         message: 'School: '
     })
-    // Making new Intern with inputs (TODO: IF INPUTS ARE ACCEPTED)
+
+    // Checking if user entered anything...
+    if ( school.length === 0 ) {
+
+        console.log('You must provide a school.');
+
+        ({ school }) = await inquirer.prompt({
+            type: 'input',
+            name: 'school',
+            message: 'School: '
+        });
+    }
+
+    // Making new Intern with inputs (IF INPUTS ARE ACCEPTED)
     const employ = new Intern(name, id, email, school);
+
     // Adding new Intern to array of employees
     employArr.push(employ);
 
@@ -235,8 +286,10 @@ const generateHTML = () => {
 
 // Our actual applicaton function, handles start to finish
 const main = async () => {
+
     // First we assume a manager is using our app and call the registerManager function
     await registerManager();
+
     // Defining a variable for our do/while loop
     let exit = false;
     
@@ -248,16 +301,20 @@ const main = async () => {
             message: 'Would you like to add another engineer, or intern? Or are you finished building your team?',
             choices: ['Engineer','Intern','All Done']
         })
+
         // Switch case to handle choice...
         switch(another) {
+
             // User picked Engineer, so we call our newEngineer function and break, going back to our above prompt
             case 'Engineer': {
                 await newEngineer();
             } break;
+
             // User picked Intern, so we call newIntern function and break, going back to our prompt
             case 'Intern': {
                 await newIntern();
             } break;
+
             // User pick All Done, so we set exit to true (exiting us from our while loop after we break this block), call our generate HTML function which takes our inputs and creates our new index.html in Output 
             case 'All Done': {
                 console.log('Sounds good! Generating your page now...');
