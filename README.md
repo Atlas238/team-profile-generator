@@ -12,9 +12,10 @@ Your generated file will appear after all prompts have been responded to and can
 
 ## Links
 
-- ![Github Repository](https://github.com/Atlas238/team-profile-generator)
-- ![Video Walkthrough]()
+- [Github Repository](https://github.com/Atlas238/team-profile-generator)
+- [Video Walkthrough](https://drive.google.com/file/d/1P4RQ7TgJgHOJ_GRlDfb6Ha0pzr-W6c88/view)
+- [Passing Tests...](https://drive.google.com/file/d/1rncsN4nF8bN8en-jwS7SEbixA3tlXGKG/view)
 
 ## Screenshot of Sample Page
 
-![Generated Page]()
+ ![Generated Page](./Develop/assets/generated-page-demo.PNG)
