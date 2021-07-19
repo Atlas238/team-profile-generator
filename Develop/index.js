@@ -62,16 +62,19 @@ const registerManager = async () => {
     // If user entered anything...
     if (name.length === 0 || id.length === 0 || email.length === 0 || officeNumber.length === 0) {
         console.log('Items may not be left blank.');
-     ({ name, id, email, officeNumber })  = await inquirer.prompt(teamManagerQuestions);
+        // TODO:
+    } else {
+
+        const manager = new Manager(name, id, email, officeNumber);
+        employArr.push(manager);
+        console.log(`Thanks ${manager.name}.`);
+
     }
+    
+    
+    
 
-    // Creating new Manager (If inputs were non-zero)
-    const manager = new Manager(name, id, email, officeNumber);
 
-    // Adding our manager to employee array
-    employArr.push(manager);
-
-    console.log(`Thanks ${manager.name}.`);
 
 }
 
@@ -79,15 +82,15 @@ const registerManager = async () => {
 const newEngineer = async () => {
 
     console.log('Great! Please fill out the new employees details.');
-    
+
     // Asking for name, id, email (same for all employee types)
     const { name, id, email }  = await inquirer.prompt(employeeQuestions);
-
+// TODO: wrap things into if or invert for Intern and here
     // Checking if user entered anything...
     if (name.length === 0 || id.length === 0 || email.length === 0) {
         console.log('Items may not be left blank.');
-     ({ name, id, email })  = await inquirer.prompt(employeeQuestions);
-    }
+        
+    } else {
     
     console.log('The Engineer role requires registration of a github username...');
 
@@ -99,7 +102,7 @@ const newEngineer = async () => {
             message: 'Username: '
         });
 
-    // Checking if user entered something
+    // Checking if user entered something TODO: this one is weird... might be bugged check this case
     if (github.length === 0) {
         console.log("Github username can't be left blank.")
         ({ github }) = await inquirer.prompt({
@@ -116,6 +119,7 @@ const newEngineer = async () => {
     employArr.push(employ);
 
     console.log("Thanks! Your new engineer has been added.");
+}
 
 }
 
@@ -130,8 +134,10 @@ const newIntern = async () => {
     // Checking if user entered anything...
     if (name.length === 0 || id.length === 0 || email.length === 0) {
         console.log('Items may not be left blank.');
-     ({ name, id, email })  = await inquirer.prompt(employeeQuestions);
-    }
+        // TODO:
+    } else {
+
+    
 
     console.log('The Intern role requires registration of a School...');
 
@@ -146,13 +152,8 @@ const newIntern = async () => {
     if ( school.length === 0 ) {
 
         console.log('You must provide a school.');
-
-        ({ school }) = await inquirer.prompt({
-            type: 'input',
-            name: 'school',
-            message: 'School: '
-        });
-    }
+        // TODO:
+    } else {
 
     // Making new Intern with inputs (IF INPUTS ARE ACCEPTED)
     const employ = new Intern(name, id, email, school);
@@ -161,6 +162,8 @@ const newIntern = async () => {
     employArr.push(employ);
 
     console.log("Thanks! Your new Intern has been added.");
+}
+}
 }
 
 // Creates our dynamic HTML file
